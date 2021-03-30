@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/cso_image"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            tools:src="@mipmap/ic_launcher"
+            />
+        <TextView
+            android:id="@+id/cso_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="CSO Name"
+            android:textColor="@color/black"
+            android:layout_below="@id/cso_image"/>
+        <TextView
+            android:id="@+id/cso_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="CSO Description"
+            android:layout_below="@id/cso_name"/>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
