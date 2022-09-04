@@ -32,6 +32,7 @@ object AppModule {
     @Singleton
     fun provideDatabase(app: Application): CivilSocietyDatabase =
         Room.databaseBuilder(app,CivilSocietyDatabase::class.java,"restaurant_database")
+            .fallbackToDestructiveMigration()  //I addaed this later after tempering with the database versions
             .build()
 
 }

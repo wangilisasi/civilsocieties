@@ -3,4 +3,112 @@
     <string name="title_home">CSOs</string>
     <string name="title_dashboard">CSO Map</string>
     <string name="title_notifications">Settings</string>
+
+    <string name="vision">
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text
+        ever since the 1500s, when an unknown printer took a galley of type
+        and scrambled it to make a type specimen book. It has survived not only
+        five centuries, but also the leap into electronic
+        typesetting, remaining essentially unchanged. It was popularised in the
+        1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.\n\n
+
+    </string>
+
+    <string name="mission">
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text
+        ever since the 1500s, when an unknown printer took a galley of type
+        and scrambled it to make a type specimen book. It has survived not only
+        five centuries, but also the leap into electronic
+        typesetting, remaining essentially unchanged. It was popularised in the
+        1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.\n\n
+
+    </string>
+
+    <string name="core_Values">
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text
+        ever since the 1500s, when an unknown printer took a galley of type
+        and scrambled it to make a type specimen book. It has survived not only
+        five centuries, but also the leap into electronic
+        typesetting, remaining essentially unchanged. It was popularised in the
+        1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.\n\n
+
+    </string>
+    <string name="accomplishments">
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text
+        ever since the 1500s, when an unknown printer took a galley of type
+        and scrambled it to make a type specimen book. It has survived not only
+        five centuries, but also the leap into electronic
+        typesetting, remaining essentially unchanged. It was popularised in the
+        1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.\n\n
+
+    </string>
+
+    <string-array name="Countries">
+        <item>Tanzania</item>
+        <item>Kenya</item>
+        <item>Rwanda</item>
+        <item>Uganda</item>
+        <item>Burundi</item>
+        <item>South Sudan</item>
+    </string-array>
+
+    <string-array name="Regions">
+        <item>Arusha</item>
+        <item>Mwanza</item>
+        <item>Dar-Es-Salaam</item>
+        <item>Mbeya</item>
+        <item>Dodoma</item>
+        <item>Kilimanjaro</item>
+    </string-array>
+
+    <string-array name="Type">
+        <item>CSO</item>
+        <item>Community</item>
+        <item>NGO</item>
+
+    </string-array>
+
+    <string name="don_t_have_an_account_register_now">Don\'t have an account? <b>Register Now</b></string>
+    <string name="email">email</string>
+    <string name="email_hint">john@mail.czom</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="signup">Register</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="register_now">Register Now</string>
+    <string name="already_have_an_account_login_now">Already have an account? <b>Login Now</b></string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="hint_name">Name of your Organization<font color='#FF0000'>*</font></string>
+    <string name="hint_country">Country<font color='#FF0000'>*</font></string>
+    <string name="hint_region">Region/Province<font color='#FF0000'>*</font></string>
+    <string name="hint_phone">Mobile Phone<font color='#FF0000'>*</font></string>
+    <string name="hint_focus">Focus of your Organization eg HIV..<font color='#FF0000'>*</font></string>
+    <string name="hint_location">Your Location<font color='#FF0000'>*</font></string>
+    <string name="photo_organization">Photo of Organization Activities<font color='#FF0000'>*</font></string>
 </resources>

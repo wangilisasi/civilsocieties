@@ -19,7 +19,15 @@ class CivilSocietyViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-        val civilSocieties=civilSocietyRepository.getCivilSocieties().asLiveData()
+    val searchQuery = MutableStateFlow("")
+
+    private val civilSocietyFlow=searchQuery.flatMapLatest {
+        civilSocietyRepository.getCivilSocieties(it)
+    }
+
+    //val civilSocieties = civilSocietyRepository.getCivilSocieties().asLiveData()
+
+    val civilSocieties=civilSocietyFlow.asLiveData()
 }
 
 

@@ -14,11 +14,11 @@
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_signup"
-        android:title="Signup"
+        android:title="Register"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/action_settings"
-        android:title="Settings"
+        android:id="@+id/action_logout"
+        android:title="Logout"
         app:showAsAction="never"/>
 
 

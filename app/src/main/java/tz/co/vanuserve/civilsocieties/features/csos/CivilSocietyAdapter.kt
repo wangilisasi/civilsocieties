@@ -3,28 +3,47 @@ package tz.co.vanuserve.civilsocieties.features.csos
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import tz.co.vanuserve.civilsocieties.data.CivilSociety
 import tz.co.vanuserve.civilsocieties.databinding.CsoItemBinding
 
-class CivilSocietyAdapter : ListAdapter<CivilSociety, CivilSocietyAdapter.CivilSocietyViewHolder>(CivilSocietyComparator()){
+class CivilSocietyAdapter(private val listener:OnItemClickListener) : ListAdapter<CivilSociety, CivilSocietyAdapter.CivilSocietyViewHolder>(CivilSocietyComparator()){
 
 
-    class CivilSocietyViewHolder(private val binding: CsoItemBinding) :
+    inner class CivilSocietyViewHolder(private val binding: CsoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        //Implement the listener
+        init{
+            binding.root.setOnClickListener{
+                val position=bindingAdapterPosition
+                if(position!=RecyclerView.NO_POSITION){     //prevent app accessing item at index that doesnt exist
+                    val item=getItem(position)
+                    if(item!=null){
+                        listener.onItemClick(item)
+                    }
+                }
+
+            }
+        }
+
         fun bind(civilSociety: CivilSociety) {
             binding.apply {
                 Glide.with(itemView)
                     .load(civilSociety.avatar)
                     .centerCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(csoImage)
 
 
                 csoName.text=civilSociety.name
                 csoDesc.text=civilSociety.description
+                regionTag.text=civilSociety.region
             }
         }
     }
@@ -46,5 +65,9 @@ class CivilSocietyAdapter : ListAdapter<CivilSociety, CivilSocietyAdapter.CivilS
         if(currentItem!=null){
             holder.bind(currentItem)
         }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(civilSociety:CivilSociety)
     }
 }

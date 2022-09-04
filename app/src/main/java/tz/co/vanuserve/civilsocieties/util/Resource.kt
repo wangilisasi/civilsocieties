@@ -8,5 +8,4 @@ sealed class Resource<T>(
         class Success<T>(data:T):Resource<T>(data)
         class Loading<T>(data:T?=null):Resource<T>(data)  //Nullable enables us to decide if we want to display empty list wjile loading, or diaply data while loading
         class Error<T>(throwable: Throwable,data:T?=null):Resource<T>(data,throwable)  //nullable means its optional
-
     }
