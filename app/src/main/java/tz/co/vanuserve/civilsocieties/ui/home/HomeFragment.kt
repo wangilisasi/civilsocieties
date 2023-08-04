@@ -77,9 +77,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), CivilSocietyAdapter.OnIte
             }
 
             homeViewModel.civilSocieties.observe(viewLifecycleOwner) { result ->
+                progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 civilSocietyAdapter.submitList(result.data)
 
-                progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 //textViewError.isVisible=result is Resource.Error && result.data.isNullOrEmpty()
                 //textViewError.text=result.error?.localizedMessage
             }
@@ -94,7 +94,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), CivilSocietyAdapter.OnIte
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_home, menu)
-        val searchItem = menu.findItem(R.id.action_search)
+        val searchItem = menu.findItem(R.id.homeFragment)
         val searchView = searchItem.actionView as SearchView
 
         searchView.onQueryTextChanged {
@@ -142,5 +142,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), CivilSocietyAdapter.OnIte
                 }
             })
     }
+
+
 }
 

@@ -10,6 +10,7 @@ import tz.co.vanuserve.civilsocieties.api.CivilSocietyApi
 import tz.co.vanuserve.civilsocieties.data.CivilSociety
 import tz.co.vanuserve.civilsocieties.data.CivilSocietyDao
 import tz.co.vanuserve.civilsocieties.data.CivilSocietyRepository
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +29,9 @@ class CivilSocietyViewModel @Inject constructor(
     //val civilSocieties = civilSocietyRepository.getCivilSocieties().asLiveData()
 
     val civilSocieties=civilSocietyFlow.asLiveData()
+
+
+
 }
 
 

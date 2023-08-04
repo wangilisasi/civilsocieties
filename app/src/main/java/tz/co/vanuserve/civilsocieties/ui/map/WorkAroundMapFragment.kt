@@ -1,4 +1,4 @@
-package tz.co.vanuserve.civilsocieties.ui.dashboard
+package tz.co.vanuserve.civilsocieties.ui.map
 
 import android.R
 import android.content.Context

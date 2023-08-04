@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import tz.co.vanuserve.civilsocieties.R
 
-class NotificagootionsFragment : Fragment() {
+class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 

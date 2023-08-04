@@ -10,7 +10,7 @@ import tz.co.vanuserve.civilsocieties.responses.RegisterResponse
 interface CivilSocietyApi {
 
     companion object {
-        const val BASE_URL = "https://cso-app.herokuapp.com/"
+        const val BASE_URL = "https://web-production-a711.up.railway.app/"
     }
 
     @GET("csos")

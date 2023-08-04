@@ -17,4 +17,4 @@ data class CivilSociety (
     val latitude:String,
     val longitude:String,
     val region:String,
-        ):Parcelable
+        ) :Parcelable

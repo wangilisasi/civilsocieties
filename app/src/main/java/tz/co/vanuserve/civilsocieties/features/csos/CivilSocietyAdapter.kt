@@ -34,7 +34,7 @@ class CivilSocietyAdapter(private val listener:OnItemClickListener) : ListAdapte
 
         fun bind(civilSociety: CivilSociety) {
             binding.apply {
-                Glide.with(itemView)
+                Glide.with(itemView.context)
                     .load(civilSociety.avatar)
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())

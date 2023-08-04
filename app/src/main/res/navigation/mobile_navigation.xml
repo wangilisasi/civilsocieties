@@ -13,28 +13,38 @@
         <action
             android:id="@+id/action_navigation_home_to_detailsFragment"
             app:destination="@id/detailsFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" >
+            <argument
+                android:name="cso"
+                app:argType="tz.co.vanuserve.civilsocieties.data.CivilSociety"
+                />
+
+        </action>
         <action
             android:id="@+id/action_navigation_home_to_uploadFragment"
             app:destination="@id/uploadFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_navigation_home_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
+
     </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="tz.co.vanuserve.civilsocieties.ui.dashboard.MapsFragment"
+        android:name="tz.co.vanuserve.civilsocieties.ui.map.MapsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_maps" >
         <action

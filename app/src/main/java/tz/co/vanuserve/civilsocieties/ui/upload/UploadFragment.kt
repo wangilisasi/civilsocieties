@@ -1,6 +1,7 @@
 package tz.co.vanuserve.civilsocieties.ui.upload
 
 import android.Manifest
+import android.R.attr
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
@@ -12,6 +13,7 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -26,18 +28,21 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import dagger.hilt.android.AndroidEntryPoint
 import tz.co.vanuserve.civilsocieties.R
 import tz.co.vanuserve.civilsocieties.api.Resource
 import tz.co.vanuserve.civilsocieties.databinding.FragmentUploadBinding
+import tz.co.vanuserve.civilsocieties.util.Constants.IMAGE_PICK_CODE
+import tz.co.vanuserve.civilsocieties.util.Constants.LOCATION_CODE
 import tz.co.vanuserve.civilsocieties.util.FileUtils
-import tz.co.vanuserve.civilsocieties.util.visible
 import java.io.File
+
 
 @AndroidEntryPoint
 class UploadFragment: Fragment(R.layout.fragment_upload) {
-    private val IMAGE_PICK_CODE = 1000
-    private val LOCATION_CODE = 1001
+
     private  val TAG = "UploadFragment"
     var filepath:String?=null
     var imageUri: Uri?=null
@@ -97,7 +102,8 @@ class UploadFragment: Fragment(R.layout.fragment_upload) {
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
                     val action=UploadFragmentDirections.actionUploadFragmentToNavigationHome()
-                    findNavController().navigate(action)
+                    //findNavController().navigate(action)
+                    findNavController().popBackStack()
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(), "Failure", Toast.LENGTH_SHORT).show()
@@ -111,16 +117,21 @@ class UploadFragment: Fragment(R.layout.fragment_upload) {
 
             //Check Runtime Permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
+                if (
+                    ContextCompat.checkSelfPermission(
                         requireContext(),
                         Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    == PackageManager.PERMISSION_DENIED
+                    ) == PackageManager.PERMISSION_DENIED
+                    ||ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
                 ) {
-
                     // Requesting the permission
                     ActivityCompat.requestPermissions(
-                        requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ),
                         IMAGE_PICK_CODE
                     )
                 } else {
@@ -133,6 +144,7 @@ class UploadFragment: Fragment(R.layout.fragment_upload) {
         }
 
     }
+
 
     private fun setUpAutoCompleteTextViews(binding: FragmentUploadBinding) {
         //Populate the country auto complete
@@ -208,8 +220,12 @@ class UploadFragment: Fragment(R.layout.fragment_upload) {
     }
 
     private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT, null)
+       // val intent = Intent(Intent.ACTION_GET_CONTENT, null)
+        val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
+        val mimeTypes = arrayOf("image/jpeg","image/png","image/jpg")
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes)
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
        startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
@@ -228,29 +244,6 @@ class UploadFragment: Fragment(R.layout.fragment_upload) {
                         Toast.makeText(
                             requireContext(),
                             "Storage Permission was Denied",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-                run {
-                    if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        if (ContextCompat.checkSelfPermission(
-                                requireContext(),
-                                Manifest.permission.ACCESS_FINE_LOCATION
-                            )
-                            == PackageManager.PERMISSION_GRANTED
-                        ) {
-                            locationManager!!.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
-                                0,
-                                10f,
-                                locationListener
-                            )
-                        }
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Location Permission was Denied",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -287,12 +280,41 @@ class UploadFragment: Fragment(R.layout.fragment_upload) {
     //Handle result of picked Image
      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-             val imageToUpload: ImageView=requireActivity().findViewById(R.id.upload_image)
-            imageToUpload.setImageURI(data!!.data)
-            filepath = data.data!!.path
-            imageUri = data.data
-            Log.d(TAG, "onActivityResult: $imageUri")
+        if (resultCode == Activity.RESULT_OK){ //&& requestCode == IMAGE_PICK_CODE) {
+//             val imageToUpload: ImageView=requireActivity().findViewById(R.id.upload_image)
+//            imageToUpload.setImageURI(data!!.data)
+//            filepath = data.data!!.path
+//            imageUri = data.data
+//            Log.d(TAG, "onActivityResult: $imageUri")
+
+            when(requestCode){
+                IMAGE_PICK_CODE->{
+                    data?.data?.let{
+                        launchImageCrop(it)
+                        Log.d(TAG, "onActivityResult: B4 croppping $it")
+                    }?:Toast.makeText(context,"Something Wrong With Image",Toast.LENGTH_LONG).show()
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE->{
+                    val result = CropImage.getActivityResult(data)
+                    imageUri = result.uri
+                    val imageToUpload: ImageView=requireActivity().findViewById(R.id.upload_image)
+                    imageToUpload.setImageURI(imageUri)
+                    Log.d(TAG, "onActivityResult: After cropping $imageUri")
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE->{
+                    Toast.makeText(context,"Something Wrong With Image",Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+    }
+
+    private fun launchImageCrop(uri:Uri?){
+        context?.let{
+            CropImage.activity(uri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(4,3)
+                .start(it,this)
         }
     }
 
